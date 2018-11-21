@@ -1,0 +1,93 @@
+<ui:composition template="/WEB-INF/templates/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions">
+
+	<ui:define name="titulo">SGC - Novo aluno</ui:define>
+	<ui:define name="corpo">
+		<h:form>
+			<p:fieldset legend="Dados pessoais do novo aluno"
+				style="width:95%; margin: 0 auto;">
+
+				<p:growl autoUpdate="true" closabe="true" />
+
+				<p:panelGrid columns="2" id="painel"
+					style="width:50%;margin: 10px auto;" columnClasses="colunaLabels">
+
+					<p:outputLabel value="Nome completo" for="nome" />
+					<p:inputTextarea id="nome" cols="60" rows="1" maxlength="60"
+						value="#{cadastroAlunoBean.aluno.nome}" required="true" />
+
+					<p:outputLabel value="CPF" for="documento" />
+					<p:inputMask id="documento" value="#{cadastroAlunoBean.aluno.CPF}"
+						validator="#{cadastroAlunoBean.validaCPF}" required="true"
+						mask="999.999.999-99">
+						<p:ajax event="blur" process="@this" update="@this"
+							partialSubmit="true" />
+					</p:inputMask>
+
+					<p:outputLabel value="Profissão" for="profissao" />
+					<p:inputText id="profissao" required="true"
+						value="#{cadastroAlunoBean.aluno.profissao}" />
+
+					<p:outputLabel value="CEP" for="cep" />
+					<p:inputMask id="cep" value="#{cadastroAlunoBean.cepInformado}"
+						mask="99999-999" size="9" required="true">
+						<p:ajax event="blur" process="@this" partialSubmit="true"
+							listener="#{cadastroAlunoBean.pesquisaCep}"
+							update="@this municipio logradouro num_endereco bairro complemento uf" />
+					</p:inputMask>
+
+					<p:outputLabel value="UF" for="uf" />
+					<p:selectOneMenu id="uf" value="#{cadastroAlunoBean.aluno.UF}">
+						<f:selectItem itemLabel="Selecione seu estado da federação"
+							itemValue="" />
+						<f:selectItems value="#{cadastroAlunoBean.UFs}" var="UF"
+							itemValue="#{UF}" itemLabel="#{UF.descricao}"></f:selectItems>
+
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Municipio" for="municipio" />
+					<p:inputTextarea id="municipio" rows="1" cols="30" maxlength="30"
+						value="#{cadastroAlunoBean.aluno.municipio}" required="true" />
+
+					<p:outputLabel value="Logradouro" for="logradouro" />
+					<p:inputTextarea id="logradouro" cols="60" rows="1" maxlength="60"
+						value="#{cadastroAlunoBean.aluno.logradouro}" required="true" />
+
+					<p:outputLabel value="Numero" for="num_endereco" />
+					<p:inputTextarea id="num_endereco" rows="1" cols="5" maxlength="5"
+						value="#{cadastroAlunoBean.aluno.numeroEndereco}" required="true" />
+
+					<p:outputLabel value="Bairro" for="bairro" />
+					<p:inputTextarea id="bairro" rows="1" cols="30" maxlength="30"
+						value="#{cadastroAlunoBean.aluno.bairro}" required="true" />
+
+					<p:outputLabel value="Complemento" for="complemento" />
+					<p:inputTextarea id="complemento" cols="50" rows="1" maxlength="50"
+						value="#{cadastroAlunoBean.aluno.complementoEndereco}" />
+
+					<p:outputLabel value="Email" for="email" />
+					<p:inputText id="email" value="#{cadastroAlunoBean.aluno.email}"
+						required="true" />
+
+					<p:outputLabel value="Telefone" for="telefone" />
+					<p:inputMask id="telefone"
+						value="#{cadastroAlunoBean.aluno.telefone}" mask="(99)99999-9999" />
+				</p:panelGrid>
+			</p:fieldset>
+			<div class="div-botoes-fim-da-pagina">
+				<p:commandButton value="Finalizar Cadastro"
+					action="#{cadastroAlunoBean.cadastrar}" update="@form"
+					id="botaoSalvar" styleClass="botoes-dados-usuario" />
+				<p:button value="Limpar" outcome="/Alunos/CadastroAlunos"
+					styleClass="botoes-dados-usuario" />
+				<p:button value="Voltar" outcome="/Home"
+					styleClass="botoes-dados-usuario" />
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

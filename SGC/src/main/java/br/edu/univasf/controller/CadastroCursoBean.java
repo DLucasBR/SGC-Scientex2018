@@ -9,28 +9,40 @@ import javax.faces.bean.ViewScoped;
 import br.edu.univasf.DAO.DAO;
 import br.edu.univasf.model.Aluno;
 import br.edu.univasf.model.Curso;
+import br.edu.univasf.model.Instrutor;
 import br.edu.univasf.model.enums.AreasDoConhecimento;
 import br.edu.univasf.model.enums.Salas;
 
 @ManagedBean
 @ViewScoped
 public class CadastroCursoBean implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	private Curso curso = new Curso();
 	private List<Aluno> alunosCadastradosNoSistema;
+	private List<Instrutor> instrutoresCadastradosNoSistema;
 	private Aluno alunoSelecionado;
 
 	public CadastroCursoBean() {
-		DAO<Aluno> dao = new DAO<Aluno>(Aluno.class);
-		alunosCadastradosNoSistema = dao.listaTodos();
+		DAO<Aluno> daoAluno = new DAO<Aluno>(Aluno.class);
+		alunosCadastradosNoSistema = daoAluno.listaTodos();
+		DAO<Instrutor> daoInstrutor = new DAO<Instrutor>(Instrutor.class);
+		instrutoresCadastradosNoSistema = daoInstrutor.listaTodos();
 	}
-	
+
 	public Curso getCurso() {
 		return curso;
 	}
-	
+
+	public List<Instrutor> getInstrutoresCadastradosNoSistema() {
+		return instrutoresCadastradosNoSistema;
+	}
+
+	public void setInstrutoresCadastradosNoSistema(List<Instrutor> instrutoresCadastradosNoSistema) {
+		this.instrutoresCadastradosNoSistema = instrutoresCadastradosNoSistema;
+	}
+
 	public List<Aluno> getAlunosCadastradosNoSistema() {
 		return alunosCadastradosNoSistema;
 	}
@@ -38,7 +50,7 @@ public class CadastroCursoBean implements Serializable {
 	public void setAlunosCadastradosNoSistema(List<Aluno> alunos) {
 		this.alunosCadastradosNoSistema = alunos;
 	}
-	
+
 	public Aluno getAlunoSelecionado() {
 		return alunoSelecionado;
 	}
@@ -47,30 +59,27 @@ public class CadastroCursoBean implements Serializable {
 		this.alunoSelecionado = alunoSelecionado;
 	}
 
-	
-	
 	public Salas[] getSalas() {
 		return Salas.values();
 	}
-	
-	
+
 	public AreasDoConhecimento[] getAreasDoConhecimento() {
 		return AreasDoConhecimento.values();
 	}
-	
-	
+
 	public void cadastrar() {
 		DAO<Curso> dao = new DAO<Curso>(Curso.class);
-		
-		if(this.curso.getId() == null) {
+		System.out.println("foi chamado com curso " + this.curso.getAlunos().get(0).getId());
+		if (this.curso.getId() == null) {
 			dao.adiciona(this.curso);
-		}else {
+		} else {
 			dao.atualiza(curso);
 		}
 	}
-	
+
 	public void adicionarAluno() {
-		this.curso.getAlunos().add(alunoSelecionado);
+		if (!this.curso.getAlunos().contains(alunoSelecionado))
+			this.curso.getAlunos().add(alunoSelecionado);
 	}
 
 }

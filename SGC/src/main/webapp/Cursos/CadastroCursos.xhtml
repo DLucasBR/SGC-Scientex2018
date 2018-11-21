@@ -9,41 +9,55 @@
 	<ui:define name="titulo">SGC - Novo curso</ui:define>
 	<ui:define name="corpo">
 		<h:form>
+			<p:growl autoUpdate="true" closable="true"></p:growl>
+
 			<p:fieldset legend="Cadastro de novo curso">
 				<p:panelGrid columns="2" style="width: 90%; margin: 50px auto;"
 					columnClasses="colunaLabels">
 
 					<p:outputLabel value="Titulo" for="titulo" />
-					<p:inputText id="titulo" maxlength="40" style="width:27%" />
+					<p:inputText id="titulo" maxlength="40" style="width:27%"
+						required="true" value="#{cadastroCursoBean.curso.titulo}" />
 
 					<p:outputLabel value="Descricao" for="descricao" />
-					<p:inputTextarea id="descricao" style="width:99%;" />
+					<p:inputTextarea id="descricao" style="width:99%;" required="true"
+						value="#{cadastroCursoBean.curso.descricao}" />
 
 					<p:outputLabel value="Justificativa" for="justificativa" />
-					<p:inputTextarea id="justificativa" style="width:99%;" />
+					<p:inputTextarea id="justificativa" style="width:99%;"
+						required="true" value="#{cadastroCursoBean.curso.justificativa}" />
 
 					<p:outputLabel value="Area do conhecimento"
 						for="areaDoConhecimento" />
 					<p:selectOneMenu id="areaDoConhecimento"
-						value="#{cadastroCursoBean.curso.areaDoConhecimento}">
+						value="#{cadastroCursoBean.curso.areaDoConhecimento}"
+						required="true">
 						<f:selectItem itemLabel="Selecione uma area do conhecimento"
 							itemValue="" />
 						<f:selectItems value="#{cadastroCursoBean.areasDoConhecimento}"
 							var="areaDoConhecimento" itemValue="#{areaDoConhecimento}"
 							itemLabel="#{areaDoConhecimento.descricao}" />
 					</p:selectOneMenu>
-					
+
 					<p:outputLabel value="Instrutor" />
-					<p:selectOneMenu>
+					<p:selectOneMenu value="#{cadastroCursoBean.curso.instrutor}">
 						<f:selectItem
 							itemLabel="Selecione um instrutor cadastrado no sistema" />
+						<f:selectItems
+							value="#{cadastroCursoBean.instrutoresCadastradosNoSistema}"
+							var="instrutor" itemLabel="#{instrutor.nome}"
+							itemValue="#{instrutor}"></f:selectItems>
 					</p:selectOneMenu>
 
 					<p:outputLabel value="Data" />
-					<p:calendar></p:calendar>
+					<p:calendar value="#{cadastroCursoBean.curso.data}"
+						pattern="dd/MM/yyyy" converter="localDateConverter"
+						required="true" />
 
 					<p:outputLabel value="Sala" for="sala" />
-					<p:selectOneMenu id="sala" value="#{cadastroCursoBean.curso.sala}" required="true" requiredMessage="Você deve selecionar uma sala para o curso">
+					<p:selectOneMenu id="sala" value="#{cadastroCursoBean.curso.sala}"
+						required="true"
+						requiredMessage="Você deve selecionar uma sala para o curso">
 						<f:selectItem itemLabel="Selecione a sala onde ocorrerá o curso" />
 						<f:selectItems value="#{cadastroCursoBean.salas}" var="sala"
 							itemValue="#{sala}" itemLabel="#{sala.descricao}"></f:selectItems>
@@ -57,26 +71,39 @@
 						id="aluno">
 						<f:selectItem itemLabel="Selecione um aluno cadastrado no sistema"
 							itemValue="" />
-						<f:selectItems value="#{cadastroCursoBean.alunosCadastradosNoSistema}"></f:selectItems>
+						<f:selectItems
+							value="#{cadastroCursoBean.alunosCadastradosNoSistema}"></f:selectItems>
 					</p:selectOneMenu>
 					<p:commandButton value="Adicionar"
-						action="#{cadastrCursoBean.adicionarAluno}" />
+						action="#{cadastroCursoBean.adicionarAluno}" partialSubmit="true"
+						process="@this aluno" update="tabelaAlunos" />
 				</p:panelGrid>
 
 				<h1 style="text-align: center; margin-top: 50px;">Alunos
 					inscritos no curso</h1>
-				<p:dataTable emptyMessage="Nenhum aluno inscrito">
-					<p:column headerText="nome" />
-					<p:column headerText="profissao" />
-					<p:column headerText="email" />
-					<p:column headerText="cidade" />
-					<p:column></p:column>
+				<p:dataTable value="#{cadastroCursoBean.curso.alunos}" var="aluno"
+					emptyMessage="Nenhum aluno inscrito" id="tabelaAlunos">
+					<p:column headerText="nome" style="text-align:center">
+						<h:outputText value="#{aluno.nome}" />
+					</p:column>
+					<p:column headerText="profissao" style="text-align:center">
+						<h:outputText value="#{aluno.profissao}" />
+					</p:column>
+					<p:column headerText="email" style="text-align:center">
+						<h:outputText value="#{aluno.email}" />
+					</p:column>
+					<p:column headerText="cidade" style="text-align:center">
+						<h:outputText value="#{aluno.municipio}" />
+					</p:column>
+					<p:column headerText="Remover" style="text-align:center">
+						<p:commandButton icon="ui-icon-trash"></p:commandButton>
+					</p:column>
 				</p:dataTable>
 			</p:fieldset>
 
 			<div class="div-botoes-fim-da-pagina">
 				<p:commandButton value="Finalizar Cadastro"
-					action="#{cadastroAlunoBean.cadastrar}" update="@form"
+					action="#{cadastroCursoBean.cadastrar}" update="@form"
 					id="botaoSalvar" styleClass="botoes-dados-usuario" />
 				<p:button value="Limpar" outcome="/Cursos/CadastroCursos"
 					styleClass="botoes-dados-usuario" />

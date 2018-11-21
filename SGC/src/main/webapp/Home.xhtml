@@ -9,36 +9,37 @@
 	<ui:define name="titulo">SGC - Home</ui:define>
 	<ui:define name="corpo">
 
-		<p:dataTable style="width:90%;margin: 50px auto;"
+		<p:dataTable value="#{consultarCursosBean.cursos}" var="curso"
+			style="width:90%;margin: 50px auto;"
 			emptyMessage="Nenhum curso cadastrado">
 
 			<f:facet name="header">
       			Cursos cadastrados no sistema
     		</f:facet>
 			<p:column headerText="Titulo">
+				<p:outputLabel value="#{curso.titulo}" />
 			</p:column>
-			<p:column headerText="Area do conhecimento"></p:column>
-			<p:column headerText="Quantidade de vagas / inscritos">
+			<p:column headerText="Area do conhecimento">
+				<p:outputLabel value="#{curso.areaDoConhecimento}" />
 			</p:column>
-			<p:column headerText="Instrutor"></p:column>
-			<p:column headerText="Sala"></p:column>
-			<p:column headerText="Data"></p:column>
+			<p:column headerText="Quantidade de inscritos">
+				<p:outputLabel value="#{fn:length(curso.alunos)}" />
+			</p:column>
+			<p:column headerText="Instrutor">
+				<p:outputLabel value="#{curso.instrutor.nome}" />
+			</p:column>
+			<p:column headerText="Sala">
+				<p:outputLabel value="#{curso.sala}" />
+			</p:column>
+			<p:column headerText="Data">
+				<p:outputLabel value="#{curso.data}">
+				</p:outputLabel>
+			</p:column>
 			<p:column></p:column>
 
 			<f:facet name="footer">
-				<!-- #{fn:length(nomeDoBean.lista)} cadastrados no sistema.-->
+				#{fn:length(consultarCursosBean.cursos)} cadastrados no sistema.
 			</f:facet>
 		</p:dataTable>
-
-
-
-
-
-
-
-
-
-
-
 	</ui:define>
 </ui:composition>

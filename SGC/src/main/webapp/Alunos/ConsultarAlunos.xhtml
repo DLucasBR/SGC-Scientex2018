@@ -8,31 +8,62 @@
 
 	<ui:define name="titulo">SGC - Consultar Alunos</ui:define>
 	<ui:define name="corpo">
+		<h:form id="frm">
+			<p:dataTable value="#{consultarAlunosBean.alunos}" var="aluno"
+				style="width:90%;margin: 50px auto;"
+				emptyMessage="Nenhum aluno cadastrado">
 
-		<p:dataTable value="#{consultarAlunosBean.alunos}" var="aluno"
-			style="width:90%;margin: 50px auto;"
-			emptyMessage="Nenhum aluno cadastrado">
-
-			<f:facet name="header">
+				<f:facet name="header">
       			Alunos cadastrados no sistema
     		</f:facet>
-			<p:column headerText="Nome">
-				<p:outputLabel value="#{aluno.nome}" />
-			</p:column>
-			<p:column headerText="CPF">
-				<p:outputLabel value="#{aluno.CPF}" />
-			</p:column>
-			<p:column headerText="Cidade">
-				<p:outputLabel value="#{aluno.municipio}" />
-			</p:column>
-			<p:column headerText="email">
-				<p:outputLabel value="#{aluno.email}" />
-			</p:column>
-			<p:column></p:column>
+				<p:column headerText="Nome">
+					<p:outputLabel value="#{aluno.nome}" />
+				</p:column>
+				<p:column headerText="CPF">
+					<p:outputLabel value="#{aluno.CPF}" />
+				</p:column>
+				<p:column headerText="Cidade">
+					<p:outputLabel value="#{aluno.municipio}" />
+				</p:column>
+				<p:column headerText="email">
+					<p:outputLabel value="#{aluno.email}" />
+				</p:column>
+				<p:column>
+					<p:commandButton>
+						<p:commandButton icon="ui-icon-trash" process="@this"
+							update=":frm:tabelaCursos" partialSubmit="true">
+							<f:setPropertyActionListener value="#{aluno}"
+								target="#{consultarAlunosBean.alunoSelecionado}" />
+						</p:commandButton>
+					</p:commandButton>
+				</p:column>
 
-			<f:facet name="footer">
-				#{fn:length(consultarAlunosBean.alunos)} cadastrados no sistema
+				<f:facet name="footer">
+				#{fn:length(consultarAlunosBean.alunos)} alunos cadastrados no sistema
 			</f:facet>
-		</p:dataTable>
+			</p:dataTable>
+
+			<h1 style="text-align: center; margin-top: 50px;">#{
+				alunoSelecionado == null? 'Nenhum aluno selecionado':
+				alunoSelecionado.nome}</h1>
+				
+			<p:dataTable value="#{consultarAlunoBean.alunoSelecionado.cursos}"
+				var="curso" style="width:90%;margin: 50px auto;" id="tabelaCursos"
+				emptyMessage="Selecione um aluno para visualizar a lista de cursos">
+
+				<p:column headerText="Titulo">
+					<p:outputLabel value="#{curso.titulo}" />
+				</p:column>
+				<p:column headerText="Area do conhecimento">
+					<p:outputLabel value="#{curso.areaDoConhecimento}" />
+				</p:column>
+				<p:column headerText="Data">
+					<p:outputLabel value="#{curso.data}" />
+				</p:column>
+				<p:column headerText="Instrutor">
+					<p:outputLabel value="#{curso.instrutor.nome}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
 	</ui:define>
 </ui:composition>

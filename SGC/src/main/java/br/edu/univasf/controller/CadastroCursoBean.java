@@ -23,12 +23,17 @@ public class CadastroCursoBean implements Serializable {
 	private List<Aluno> alunosCadastradosNoSistema;
 	private List<Instrutor> instrutoresCadastradosNoSistema;
 	private Aluno alunoSelecionado;
+	
+	DAO<Aluno> daoAluno; 
+	DAO<Instrutor> daoInstrutor;
+	DAO<Curso> daoCurso;
 
 	public CadastroCursoBean() {
-		DAO<Aluno> daoAluno = new DAO<Aluno>(Aluno.class);
+		daoAluno = new DAO<Aluno>(Aluno.class);
 		alunosCadastradosNoSistema = daoAluno.listaTodos();
-		DAO<Instrutor> daoInstrutor = new DAO<Instrutor>(Instrutor.class);
+		daoInstrutor = new DAO<Instrutor>(Instrutor.class);
 		instrutoresCadastradosNoSistema = daoInstrutor.listaTodos();
+		daoCurso = new DAO<Curso>(Curso.class);
 	}
 
 	public Curso getCurso() {
@@ -54,6 +59,10 @@ public class CadastroCursoBean implements Serializable {
 	public Aluno getAlunoSelecionado() {
 		return alunoSelecionado;
 	}
+	
+	public void setCurso(Curso curso) {
+		this.curso = curso;
+	}
 
 	public void setAlunoSelecionado(Aluno alunoSelecionado) {
 		this.alunoSelecionado = alunoSelecionado;
@@ -68,18 +77,24 @@ public class CadastroCursoBean implements Serializable {
 	}
 
 	public void cadastrar() {
-		DAO<Curso> dao = new DAO<Curso>(Curso.class);
-		System.out.println("foi chamado com curso " + this.curso.getAlunos().get(0).getId());
 		if (this.curso.getId() == null) {
-			dao.adiciona(this.curso);
+			daoCurso.adiciona(this.curso);
 		} else {
-			dao.atualiza(curso);
+			daoCurso.atualiza(curso);
 		}
+	}
+	
+	public void excluir() {
+		daoCurso.remove(curso);
 	}
 
 	public void adicionarAluno() {
-		if (!this.curso.getAlunos().contains(alunoSelecionado))
+		if (!this.curso.getAlunos().contains(alunoSelecionado) && alunoSelecionado.getId() != null)
 			this.curso.getAlunos().add(alunoSelecionado);
+	}
+	
+	public void removeAluno() {
+		this.curso.getAlunos().remove(alunoSelecionado);
 	}
 
 }

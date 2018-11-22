@@ -81,22 +81,27 @@
 
 				<h1 style="text-align: center; margin-top: 50px;">Alunos
 					inscritos no curso</h1>
-				<p:dataTable value="#{cadastroCursoBean.curso.alunos}" var="aluno"
+				<p:dataTable style="margin: 0 auto;width:90%" value="#{cadastroCursoBean.curso.alunos}" var="aluno"
 					emptyMessage="Nenhum aluno inscrito" id="tabelaAlunos">
-					<p:column headerText="nome" style="text-align:center">
+					<p:column headerText="Nome" style="text-align:center">
 						<h:outputText value="#{aluno.nome}" />
 					</p:column>
-					<p:column headerText="profissao" style="text-align:center">
+					<p:column headerText="Profissao" style="text-align:center">
 						<h:outputText value="#{aluno.profissao}" />
 					</p:column>
-					<p:column headerText="email" style="text-align:center">
+					<p:column headerText="Email" style="text-align:center">
 						<h:outputText value="#{aluno.email}" />
 					</p:column>
-					<p:column headerText="cidade" style="text-align:center">
+					<p:column headerText="Cidade" style="text-align:center">
 						<h:outputText value="#{aluno.municipio}" />
 					</p:column>
-					<p:column headerText="Remover" style="text-align:center">
-						<p:commandButton icon="ui-icon-trash"></p:commandButton>
+					<p:column headerText="Opções" style="text-align:center">
+						<p:commandButton icon="ui-icon-trash"
+							action="#{cadastroCursoBean.removeAluno}" process="@this"
+							update="tabelaAlunos" partialSubmit="true">
+							<f:setPropertyActionListener value="#{aluno}"
+								target="#{cadastroCursoBean.alunoSelecionado}"/>
+						</p:commandButton>
 					</p:column>
 				</p:dataTable>
 			</p:fieldset>

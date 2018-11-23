@@ -24,7 +24,12 @@ public class CadastroAlunoBean implements Serializable {
 
 	private Aluno aluno = new Aluno();
 	private String cepInformado;
+	private DAO<Aluno> daoAluno;
 
+	public CadastroAlunoBean() {
+		daoAluno = new DAO<Aluno>(Aluno.class);
+	}
+	
 	public Aluno getAluno() {
 		return aluno;
 	}
@@ -38,12 +43,12 @@ public class CadastroAlunoBean implements Serializable {
 	}
 
 	public void cadastrar() {
-		DAO<Aluno> dao = new DAO<Aluno>(Aluno.class);
-		
 		if(this.aluno.getId() == null) {
-			dao.adiciona(this.aluno);
+			daoAluno.adiciona(this.aluno);
+			FacesUtil.addInfoMessage("Aluno cadastrado com sucesso!");
+			this.aluno = new Aluno();
 		}else {
-			dao.atualiza(aluno);
+			daoAluno.atualiza(aluno);
 		}
 	}
 	

@@ -33,6 +33,14 @@
 					<p:inputText id="profissao" required="true"
 						value="#{cadastroAlunoBean.aluno.profissao}" />
 
+					<p:outputLabel value="Email" for="email" />
+					<p:inputText id="email" value="#{cadastroAlunoBean.aluno.email}"
+						required="true" />
+
+					<p:outputLabel value="Telefone" for="telefone" />
+					<p:inputMask id="telefone"
+						value="#{cadastroAlunoBean.aluno.telefone}" mask="(99)99999-9999" />
+
 					<p:outputLabel value="CEP" for="cep" />
 					<p:inputMask id="cep" value="#{cadastroAlunoBean.cepInformado}"
 						mask="99999-999" size="9" required="true">
@@ -41,8 +49,8 @@
 							update="@this municipio logradouro num_endereco bairro complemento uf" />
 					</p:inputMask>
 
-					<p:outputLabel value="UF" for="uf" />
-					<p:selectOneMenu id="uf" value="#{cadastroAlunoBean.aluno.UF}">
+					<p:outputLabel value="UF" for="uf"/>
+					<p:selectOneMenu id="uf" value="#{cadastroAlunoBean.aluno.UF}" required="true">
 						<f:selectItem itemLabel="Selecione seu estado da federação"
 							itemValue="" />
 						<f:selectItems value="#{cadastroAlunoBean.UFs}" var="UF"
@@ -54,6 +62,10 @@
 					<p:inputTextarea id="municipio" rows="1" cols="30" maxlength="30"
 						value="#{cadastroAlunoBean.aluno.municipio}" required="true" />
 
+					<p:outputLabel value="Bairro" for="bairro" />
+					<p:inputTextarea id="bairro" rows="1" cols="30" maxlength="30"
+						value="#{cadastroAlunoBean.aluno.bairro}" required="true" />
+
 					<p:outputLabel value="Logradouro" for="logradouro" />
 					<p:inputTextarea id="logradouro" cols="60" rows="1" maxlength="60"
 						value="#{cadastroAlunoBean.aluno.logradouro}" required="true" />
@@ -62,21 +74,9 @@
 					<p:inputTextarea id="num_endereco" rows="1" cols="5" maxlength="5"
 						value="#{cadastroAlunoBean.aluno.numeroEndereco}" required="true" />
 
-					<p:outputLabel value="Bairro" for="bairro" />
-					<p:inputTextarea id="bairro" rows="1" cols="30" maxlength="30"
-						value="#{cadastroAlunoBean.aluno.bairro}" required="true" />
-
 					<p:outputLabel value="Complemento" for="complemento" />
 					<p:inputTextarea id="complemento" cols="50" rows="1" maxlength="50"
 						value="#{cadastroAlunoBean.aluno.complementoEndereco}" />
-
-					<p:outputLabel value="Email" for="email" />
-					<p:inputText id="email" value="#{cadastroAlunoBean.aluno.email}"
-						required="true" />
-
-					<p:outputLabel value="Telefone" for="telefone" />
-					<p:inputMask id="telefone"
-						value="#{cadastroAlunoBean.aluno.telefone}" mask="(99)99999-9999" />
 				</p:panelGrid>
 			</p:fieldset>
 			<div class="div-botoes-fim-da-pagina">

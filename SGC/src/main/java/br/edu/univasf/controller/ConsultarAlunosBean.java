@@ -9,6 +9,7 @@ import javax.faces.bean.ViewScoped;
 
 import br.edu.univasf.DAO.DAO;
 import br.edu.univasf.model.Aluno;
+import br.edu.univasf.util.FacesUtil;
 
 @ManagedBean
 @ViewScoped
@@ -19,9 +20,10 @@ public class ConsultarAlunosBean implements Serializable {
 
 	private List<Aluno> alunos = new ArrayList<>();
 	private Aluno alunoSelecionado;
+	private DAO<Aluno> daoAlunos;
 
 	public ConsultarAlunosBean() {
-		DAO<Aluno> daoAlunos = new DAO<Aluno>(Aluno.class);
+		daoAlunos = new DAO<Aluno>(Aluno.class);
 		this.alunos = daoAlunos.listaTodos();
 	}
 
@@ -38,8 +40,13 @@ public class ConsultarAlunosBean implements Serializable {
 	}
 
 	public void setAlunoSelecionado(Aluno alunoSelecionado) {
-		System.out.println("fui chamado!" + alunoSelecionado.getNome());
 		this.alunoSelecionado = alunoSelecionado;
+	}
+	
+	public void removeAluno() {
+		daoAlunos.remove(alunoSelecionado);
+		this.alunos.remove(alunoSelecionado);
+		FacesUtil.addInfoMessage("Aluno removido com sucesso!");
 	}
 
 }

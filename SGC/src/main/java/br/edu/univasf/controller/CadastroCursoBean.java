@@ -12,6 +12,7 @@ import br.edu.univasf.model.Curso;
 import br.edu.univasf.model.Instrutor;
 import br.edu.univasf.model.enums.AreasDoConhecimento;
 import br.edu.univasf.model.enums.Salas;
+import br.edu.univasf.util.FacesUtil;
 
 @ManagedBean
 @ViewScoped
@@ -79,6 +80,8 @@ public class CadastroCursoBean implements Serializable {
 	public void cadastrar() {
 		if (this.curso.getId() == null) {
 			daoCurso.adiciona(this.curso);
+			FacesUtil.addInfoMessage("Curso cadastrado com sucesso!");
+			this.curso = new Curso();
 		} else {
 			daoCurso.atualiza(curso);
 		}

@@ -24,13 +24,11 @@
 	</div>
 	<div style="float: right; margin-right: 80px;">
 		<h:link outcome="/Home">
-			<span
-				style="float: left; height: 30px; line-height: 30px; margin-right: 200px; color: #fff; font-size: 150%;">
-				Sistema Gerenciador de Cursos </span>
+			<span class="titulo-sistema"> Sistema Gerenciador de Cursos </span>
 		</h:link>
 		<h:form style="display: inline-block">
 			<p:menubar styleClass="menu-sistema">
-				<p:submenu label="Cadastrar" style="font-size:120%;">
+				<p:submenu label="Cadastrar" styleClass="titulos-menus-barra-principal">
 					<p:menuitem value="Novo curso" outcome="/Cursos/CadastroCursos" />
 					<p:separator />
 					<p:menuitem value="Novo aluno" outcome="/Alunos/CadastroAlunos" />
@@ -38,14 +36,16 @@
 					<p:menuitem value="Novo instrutor"
 						outcome="/Instrutores/CadastroInstrutores" />
 				</p:submenu>
-				<p:submenu label="Consultar" style="font-size:120%;">
+				<p:submenu label="Consultar" styleClass="titulos-menus-barra-principal">
 					<p:menuitem value="Cursos cadastrados" outcome="/Home" />
 					<p:separator />
-					<p:menuitem value="Alunos cadastrados" outcome="/Alunos/ConsultarAlunos"/>
+					<p:menuitem value="Alunos cadastrados"
+						outcome="/Alunos/ConsultarAlunos" />
 					<p:separator />
-					<p:menuitem value="Instrutores cadastrados" outcome="/Instrutores/ConsultarInstrutores"/>
+					<p:menuitem value="Instrutores cadastrados"
+						outcome="/Instrutores/ConsultarInstrutores" />
 				</p:submenu>
-				<p:menuitem value="Gráficos" style="font-size:120%;" />
+				<p:menuitem value="Gráficos" styleClass="titulos-menus-barra-principal" />
 			</p:menubar>
 		</h:form>
 	</div>

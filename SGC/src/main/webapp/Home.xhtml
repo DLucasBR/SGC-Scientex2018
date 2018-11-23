@@ -9,40 +9,39 @@
 	<ui:define name="titulo">SGC - Home</ui:define>
 	<ui:define name="corpo">
 		<h:form id="formHome">
-		<p:growl autoUpdate="true" closable="true"/>
-		
+			<p:growl autoUpdate="true" closable="true" />
+
 			<p:dataTable value="#{consultarCursosBean.cursos}" var="curso"
-				style="width:90%;margin: 50px auto;" 
+				style="width:90%;margin: 50px auto;"
 				emptyMessage="Nenhum curso cadastrado" id="tabelaCursos">
 
 				<f:facet name="header">
       			Cursos cadastrados no sistema
     		</f:facet>
-				<p:column headerText="Titulo" style="text-align:center">
+				<p:column headerText="Titulo" styleClass="centraliza-texto">
 					<p:outputLabel value="#{curso.titulo}" />
 				</p:column>
-				<p:column headerText="Area do conhecimento">
+				<p:column headerText="Area do conhecimento" styleClass="centraliza-texto">
 					<p:outputLabel value="#{curso.areaDoConhecimento}" />
 				</p:column>
-				<p:column headerText="Quantidade de inscritos">
+				<p:column headerText="Quantidade de inscritos" styleClass="centraliza-texto">
 					<p:outputLabel value="#{fn:length(curso.alunos)}" />
 				</p:column>
-				<p:column headerText="Instrutor">
+				<p:column headerText="Instrutor" styleClass="centraliza-texto">
 					<p:outputLabel value="#{curso.instrutor.nome}" />
 				</p:column>
-				<p:column headerText="Sala">
+				<p:column headerText="Sala" styleClass="centraliza-texto">
 					<p:outputLabel value="#{curso.sala}" />
 				</p:column>
-				<p:column headerText="Data">
+				<p:column headerText="Data" styleClass="centraliza-texto">
 					<p:outputLabel value="#{curso.data}">
 					</p:outputLabel>
 				</p:column>
-				<p:column>
+				<p:column styleClass="centraliza-texto">
 					<p:commandButton icon="ui-icon-trash" title="Excluir"
-						process="@this" partialSubmit="true"
-						update="tabelaCursos" 
-						action="#{cadastroCursoBean.excluir}">
-						<f:setPropertyActionListener target="#{cadastroCursoBean.curso}"
+						process="@this" partialSubmit="true" update="tabelaCursos"
+						action="#{consultarCursosBean.excluirCurso}">
+						<f:setPropertyActionListener target="#{consultarCursosBean.cursoSelecionado}"
 							value="#{curso}" />
 					</p:commandButton>
 				</p:column>

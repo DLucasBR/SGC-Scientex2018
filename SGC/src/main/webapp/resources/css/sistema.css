@@ -36,17 +36,26 @@ footer {
 	background: none !important;
 }
 
-.menu-sistema .ui-menu-parent>a .ui-menuitem-text, .menu-sistema>.ui-menu-list>.ui-menuitem>a>.ui-menuitem-text{
+.menu-sistema .ui-menu-parent>a .ui-menuitem-text, .menu-sistema>.ui-menu-list>.ui-menuitem>a>.ui-menuitem-text
+	{
 	color: #ffffff !important;
 }
 
-.menu-sistema .ui-icon-triangle-1-s{
-	background: url(#{ resource [ 'imagens:seta-para-baixo.png' ]})no-repeat;
+.menu-sistema .ui-icon-triangle-1-s {
+	background: url(#{ resource [ 'imagens:seta-para-baixo.png' ]
 }
 
-.colunaLabels{
-	width:150px;
-	text-align:center;
+)
+no-repeat
+
+
+
+
+;
+}
+.colunaLabels {
+	width: 150px;
+	text-align: center;
 }
 
 .div-botoes-fim-da-pagina {
@@ -55,10 +64,37 @@ footer {
 	margin-top: 25px"
 }
 
+.titulo-sistema {
+	float: left;
+	height: 30px;
+	line-height: 30px;
+	margin-right: 200px;
+	color: #fff;
+	font-size: 150%;
+}
+
+.titulos-menus-barra-principal{
+	font-size:120%;
+}
+
 .botoes-dados-usuario {
 	margin-left: 15px;
 	margin-top: 20px;
 	width: 180px;
 	height: 50px;
 	font-size: 15px
+}
+
+.centraliza-texto {
+	text-align: center;
+}
+
+.painel-centralizado {
+	width: 90%;
+	margin: 50px auto;
+}
+
+.texto-centralizado {
+	text-align: center;
+	margin-top: 50px;
 }

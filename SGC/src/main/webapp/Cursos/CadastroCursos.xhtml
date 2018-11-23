@@ -12,7 +12,7 @@
 			<p:growl autoUpdate="true" closable="true"></p:growl>
 
 			<p:fieldset legend="Cadastro de novo curso">
-				<p:panelGrid columns="2" style="width: 90%; margin: 50px auto;"
+				<p:panelGrid columns="2" styleClass="painel-centralizado"
 					columnClasses="colunaLabels">
 
 					<p:outputLabel value="Titulo" for="titulo" />
@@ -27,6 +27,26 @@
 					<p:inputTextarea id="justificativa" style="width:99%;"
 						required="true" value="#{cadastroCursoBean.curso.justificativa}" />
 
+
+					<p:outputLabel value="Instrutor" />
+					<p:selectOneMenu value="#{cadastroCursoBean.curso.instrutor}">
+						<f:selectItem
+							itemLabel="Selecione um instrutor cadastrado no sistema" />
+						<f:selectItems
+							value="#{cadastroCursoBean.instrutoresCadastradosNoSistema}"
+							var="instrutor" itemLabel="#{instrutor.nome}"
+							itemValue="#{instrutor}"></f:selectItems>
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Sala" for="sala" />
+					<p:selectOneMenu id="sala" value="#{cadastroCursoBean.curso.sala}"
+						required="true"
+						requiredMessage="Você deve selecionar uma sala para o curso">
+						<f:selectItem itemLabel="Selecione a sala onde ocorrerá o curso" />
+						<f:selectItems value="#{cadastroCursoBean.salas}" var="sala"
+							itemValue="#{sala}" itemLabel="#{sala.descricao}"></f:selectItems>
+					</p:selectOneMenu>
+
 					<p:outputLabel value="Area do conhecimento"
 						for="areaDoConhecimento" />
 					<p:selectOneMenu id="areaDoConhecimento"
@@ -39,29 +59,10 @@
 							itemLabel="#{areaDoConhecimento.descricao}" />
 					</p:selectOneMenu>
 
-					<p:outputLabel value="Instrutor" />
-					<p:selectOneMenu value="#{cadastroCursoBean.curso.instrutor}">
-						<f:selectItem
-							itemLabel="Selecione um instrutor cadastrado no sistema" />
-						<f:selectItems
-							value="#{cadastroCursoBean.instrutoresCadastradosNoSistema}"
-							var="instrutor" itemLabel="#{instrutor.nome}"
-							itemValue="#{instrutor}"></f:selectItems>
-					</p:selectOneMenu>
-
 					<p:outputLabel value="Data" />
 					<p:calendar value="#{cadastroCursoBean.curso.data}"
 						pattern="dd/MM/yyyy" converter="localDateConverter"
 						required="true" />
-
-					<p:outputLabel value="Sala" for="sala" />
-					<p:selectOneMenu id="sala" value="#{cadastroCursoBean.curso.sala}"
-						required="true"
-						requiredMessage="Você deve selecionar uma sala para o curso">
-						<f:selectItem itemLabel="Selecione a sala onde ocorrerá o curso" />
-						<f:selectItems value="#{cadastroCursoBean.salas}" var="sala"
-							itemValue="#{sala}" itemLabel="#{sala.descricao}"></f:selectItems>
-					</p:selectOneMenu>
 				</p:panelGrid>
 
 				<p:panelGrid columns="3" style="margin: 50px auto;">
@@ -79,9 +80,9 @@
 						process="@this aluno" update="tabelaAlunos" />
 				</p:panelGrid>
 
-				<h1 style="text-align: center; margin-top: 50px;">Alunos
-					inscritos no curso</h1>
-				<p:dataTable style="margin: 0 auto;width:90%" value="#{cadastroCursoBean.curso.alunos}" var="aluno"
+				<h1 class="texto-centralizado">Alunos inscritos no curso</h1>
+				<p:dataTable styleClass="painel-centralizado"
+					value="#{cadastroCursoBean.curso.alunos}" var="aluno"
 					emptyMessage="Nenhum aluno inscrito" id="tabelaAlunos">
 					<p:column headerText="Nome" style="text-align:center">
 						<h:outputText value="#{aluno.nome}" />
@@ -100,7 +101,7 @@
 							action="#{cadastroCursoBean.removeAluno}" process="@this"
 							update="tabelaAlunos" partialSubmit="true">
 							<f:setPropertyActionListener value="#{aluno}"
-								target="#{cadastroCursoBean.alunoSelecionado}"/>
+								target="#{cadastroCursoBean.alunoSelecionado}" />
 						</p:commandButton>
 					</p:column>
 				</p:dataTable>

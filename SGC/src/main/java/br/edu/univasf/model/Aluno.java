@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -60,7 +61,7 @@ public class Aluno implements Serializable {
 	private String complementoEndereco;
 	@Column(length = 15)
 	private String telefone;
-	@ManyToMany(mappedBy = "alunos")
+	@ManyToMany(mappedBy = "alunos", fetch=FetchType.EAGER)
 	private List<Curso> cursos;
 
 	public Long getId() {

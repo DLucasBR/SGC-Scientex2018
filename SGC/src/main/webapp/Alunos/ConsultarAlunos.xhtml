@@ -10,31 +10,35 @@
 	<ui:define name="corpo">
 		<h:form id="frm">
 			<p:dataTable value="#{consultarAlunosBean.alunos}" var="aluno"
-				style="width:90%;margin: 50px auto;"
-				emptyMessage="Nenhum aluno cadastrado">
+				styleClass="painel-centralizado"
+				emptyMessage="Nenhum aluno cadastrado" id="tabelaAlunos">
 
 				<f:facet name="header">
       			Alunos cadastrados no sistema
     		</f:facet>
-				<p:column headerText="Nome">
+				<p:column headerText="Nome" styleClass="centraliza-texto">
 					<p:outputLabel value="#{aluno.nome}" />
 				</p:column>
-				<p:column headerText="CPF">
+				<p:column headerText="CPF" styleClass="centraliza-texto">
 					<p:outputLabel value="#{aluno.CPF}" />
 				</p:column>
-				<p:column headerText="Cidade">
-					<p:outputLabel value="#{aluno.municipio}" />
-				</p:column>
-				<p:column headerText="email">
+				<p:column headerText="email" styleClass="centraliza-texto">
 					<p:outputLabel value="#{aluno.email}" />
 				</p:column>
-				<p:column>
-					<p:commandButton>
-						<p:commandButton icon="ui-icon-trash" process="@this"
-							update=":frm:tabelaCursos" partialSubmit="true">
-							<f:setPropertyActionListener value="#{aluno}"
-								target="#{consultarAlunosBean.alunoSelecionado}" />
-						</p:commandButton>
+				<p:column headerText="Cidade" styleClass="centraliza-texto">
+					<p:outputLabel value="#{aluno.municipio}" />
+				</p:column>
+				<p:column styleClass="centraliza-texto">
+					<p:commandButton icon="ui-icon-trash" process="@this"
+						update="tabelaAlunos" partialSubmit="true"
+						action="#{consultarAlunosBean.removeAluno}">
+						<f:setPropertyActionListener value="#{aluno}"
+							target="#{consultarAlunosBean.alunoSelecionado}" />
+					</p:commandButton>
+					<p:commandButton icon="ui-icon-clipboard"
+						update=":frm:tabelaCursos :frm:texto">
+						<f:setPropertyActionListener value="#{aluno}"
+							target="#{consultarAlunosBean.alunoSelecionado}" />
 					</p:commandButton>
 				</p:column>
 
@@ -42,25 +46,29 @@
 				#{fn:length(consultarAlunosBean.alunos)} alunos cadastrados no sistema
 			</f:facet>
 			</p:dataTable>
+			<p:outputPanel id="texto">
+				<h1 class="texto-centralizado">#{
+					consultarAlunosBean.alunoSelecionado == null? 'Nenhum aluno
+					selecionado': 'Cursos em que o aluno
+					'.concat(consultarAlunosBean.alunoSelecionado.nome).concat(' está
+					inscrito:')}</h1>
+			</p:outputPanel>
 
-			<h1 style="text-align: center; margin-top: 50px;">#{
-				alunoSelecionado == null? 'Nenhum aluno selecionado':
-				alunoSelecionado.nome}</h1>
-				
-			<p:dataTable value="#{consultarAlunoBean.alunoSelecionado.cursos}"
+
+			<p:dataTable value="#{consultarAlunosBean.alunoSelecionado.cursos}"
 				var="curso" style="width:90%;margin: 50px auto;" id="tabelaCursos"
 				emptyMessage="Selecione um aluno para visualizar a lista de cursos">
 
-				<p:column headerText="Titulo">
+				<p:column headerText="Titulo" styleClass="centraliza-texto">
 					<p:outputLabel value="#{curso.titulo}" />
 				</p:column>
-				<p:column headerText="Area do conhecimento">
+				<p:column headerText="Area do conhecimento" styleClass="centraliza-texto">
 					<p:outputLabel value="#{curso.areaDoConhecimento}" />
 				</p:column>
-				<p:column headerText="Data">
+				<p:column headerText="Data" styleClass="centraliza-texto">
 					<p:outputLabel value="#{curso.data}" />
 				</p:column>
-				<p:column headerText="Instrutor">
+				<p:column headerText="Instrutor" styleClass="centraliza-texto">
 					<p:outputLabel value="#{curso.instrutor.nome}" />
 				</p:column>
 			</p:dataTable>

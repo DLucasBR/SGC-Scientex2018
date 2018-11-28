@@ -10,6 +10,11 @@ import br.edu.univasf.model.enums.AreasDoConhecimento;
 import br.edu.univasf.model.enums.Salas;
 
 public class DAO<T> {
+	
+	/*PS. Essa implementacao eh muito ineficiente, avisar aos alunos sobre isso
+	 * comentar sobre usar CDI para gerenciar a injecao de dependencia de DAOS*/
+	
+	/*Lembrar de criar a base senao a inicilizacao do sistema lanca exception*/
 
 	private final Class<T> classe;
 
@@ -68,15 +73,6 @@ public class DAO<T> {
 		em.close();
 		return instancia;
 
-	}
-
-	public int contaTodos() {
-
-		EntityManager em = new JPAUtil().getEntityManager();
-		long result = (Long) em.createQuery("select count(n) from livro n").getSingleResult();
-		em.close();
-
-		return (int) result;
 	}
 
 	public int contaAreasDoConhecimentoNosCursos(AreasDoConhecimento area) {
